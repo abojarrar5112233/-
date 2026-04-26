@@ -792,7 +792,7 @@
       // =====================================================================
       // (1) تسجيل الطلاب — localStorage + Google Sheets
       // =====================================================================
-      const SHEETS_URL = "https://script.google.com/macros/s/AKfycbweLGiBr69rFv9m2GhWTfvExx5lGO2o_Za7QZsCy2PxeuBBWkC3pZN3knJwcjYL0acCvQ/exec";
+      const SHEETS_URL = "https://script.google.com/macros/s/AKfycby7yZ3OfyVtL_yTT6UgCvoNnYem8fQhzMrxnKYFoPKCAXrCHpzCdHO5ZnPexvOIAMpTCQ/exec";
 
       const studentForm = document.getElementById("studentForm");
       const studentFeedback = document.getElementById("studentFeedback");
@@ -1347,21 +1347,27 @@
       function getApproved() { const a = lsGet(LS_KEYS.approved, []); return Array.isArray(a) ? a : []; }
       function setApproved(a){ lsSet(LS_KEYS.approved, a); }
 
-      // ── إرسال للشيت عبر Image tag — يتجاوز CORS تماماً ──
+      // ── إرسال للشيت عبر JSONP — يتجاوز CORS 100% ──
       function sendToSheets(record) {
         return new Promise((resolve) => {
+          const cbName = "gs_cb_" + Date.now();
           const params = new URLSearchParams({
             fullName:    record.fullName,
             category:    record.category,
             parentPhone: record.parentPhone,
             dob:         record.dob,
+            callback:    cbName,
           });
-          const img = new Image();
-          img.onload  = () => resolve(true);
-          img.onerror = () => resolve(true); // Google Script يرد بـ redirect مش صورة — هذا طبيعي
-          img.src = SHEETS_URL + "?" + params.toString();
-          // timeout بعد 5 ثواني للتأكد
-          setTimeout(() => resolve(true), 5000);
+          window[cbName] = function(res) {
+            delete window[cbName];
+            if (script.parentNode) script.parentNode.removeChild(script);
+            resolve(res);
+          };
+          const script = document.createElement("script");
+          script.src = SHEETS_URL + "?" + params.toString();
+          script.onerror = () => { delete window[cbName]; resolve({status:"error"}); };
+          document.head.appendChild(script);
+          setTimeout(() => { delete window[cbName]; resolve({status:"timeout"}); }, 8000);
         });
       }
 
@@ -1500,3 +1506,4 @@
   </body>
 </html>
 
+ 
