@@ -1,0 +1,1502 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="New Ashbal Academy — التسجيل ولوحة الإدارة (localStorage)." />
+    <title>التسجيل والإدارة | New Ashbal Academy</title>
+
+    <!-- خط عربي -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              naa: {
+                ink: "#0B0F14",
+                blue: "#1e3a8a",
+                sky: "#3b82f6",
+                green: "#1B5E20",
+                maroon: "#7A0C12",
+                gold: "#d4af37",
+              },
+            },
+            boxShadow: {
+              soft: "0 16px 50px rgba(0,0,0,0.35)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      body {
+        font-family: "Cairo", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      }
+      .focus-ring:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.35);
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-naa-ink text-white">
+    <!-- ===================================================================== -->
+    <!-- Navbar + Dropdown Menu للتنقل -->
+    <!-- ===================================================================== -->
+    <header class="sticky top-0 z-50 border-b border-white/10 bg-naa-ink/80 backdrop-blur">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
+        <a href="index.html" class="group inline-flex items-center gap-3 rounded-2xl px-2 py-2 hover:bg-white/5 focus-ring">
+          <span class="grid h-11 w-11 place-items-center overflow-hidden rounded-2xl border border-white/10 bg-black/30 shadow-soft">
+            <img src="assets/image_1.png" alt="Logo" class="h-full w-full object-contain p-1" />
+          </span>
+          <span class="leading-tight hidden sm:block">
+            <span class="block text-sm font-extrabold">أكاديمية أشبال الجديدة</span>
+            <span class="block text-xs text-white/70">Management System</span>
+          </span>
+        </a>
+
+        <nav class="flex items-center gap-2">
+          <a href="index.html" class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs sm:text-sm font-extrabold hover:bg-white/10 hover:border-naa-gold transition-all">
+            <i class="fa-solid fa-house text-naa-gold"></i>
+            <span>الرئيسية</span>
+          </a>
+          <a href="media.html" class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs sm:text-sm font-extrabold hover:bg-white/10 hover:border-naa-sky transition-all">
+            <i class="fa-solid fa-photo-film text-naa-sky"></i>
+            <span>المعرض</span>
+          </a>
+          <a href="register.html" class="inline-flex items-center gap-2 rounded-xl border border-naa-green bg-white/10 px-3 py-2 text-xs sm:text-sm font-extrabold shadow-soft">
+            <i class="fa-solid fa-user-gear text-naa-green"></i>
+            <span>التسجيل</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- ===================================================================== -->
+      <!-- (1) Student Sign-up: نموذج تسجيل الطالب -->
+      <!-- ===================================================================== -->
+      <section class="border-b border-white/10 bg-gradient-to-b from-black to-naa-blue/15 py-12">
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <header class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h1 class="text-4xl font-extrabold">صفحة الانضمام</h1>
+              <p class="mt-2 text-white/70">
+                <!-- تعليق عربي: -->
+                <!-- - هذا النموذج يضيف الطالب إلى localStorage -->
+                <!-- - بعدها يستطيع المدرب رؤية القائمة من لوحة الإدارة -->
+               الرجاء تعبئة المعلومات بشكل دقيق
+              </p>
+            </div>
+
+            <!-- ================================================================= -->
+            <!-- تنبيه: بوابة الإدارة أصبحت في أسفل الصفحة حسب المواصفات -->
+            <!-- ================================================================= -->
+           
+          </header>
+
+    <section class="min-h-[80vh] flex items-center justify-center py-12 px-4">
+  <div class="w-full max-w-xl rounded-[3rem] border border-white/10 bg-white/[0.02] p-10 shadow-soft backdrop-blur-sm">
+    <header class="mb-10 text-center">
+      <h1 class="text-4xl font-black text-naa-green">تسجيل لاعب جديد</h1>
+      <p class="mt-2 text-sm text-white/70">أهلاً بك في أكاديمية أشبال الجديدة</p>
+    </header>
+
+              <form id="studentForm" class="mt-6 grid gap-5" novalidate>
+                <div>
+                  <label for="fullName" class="block text-sm font-extrabold">الاسم</label>
+                  <input
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    autocomplete="name"
+                    placeholder="مثال: أحمد محمد"
+                    class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white placeholder:text-white/35 focus-ring"
+                    required
+                  />
+                </div>
+
+                <fieldset class="rounded-2xl border border-white/10 bg-black/25 p-4">
+                  <legend class="px-1 text-sm font-extrabold">الفئة (A/B)</legend>
+                  <div class="mt-3 flex flex-wrap gap-3">
+                    <label class="inline-flex cursor-pointer items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 has-[:checked]:border-naa-sky has-[:checked]:bg-naa-sky/15">
+                      <input type="radio" name="category" value="A" class="accent-naa-sky" required />
+                      <span class="text-sm font-extrabold">الفئة A</span>
+                    </label>
+                    <label class="inline-flex cursor-pointer items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 has-[:checked]:border-naa-gold has-[:checked]:bg-naa-gold/10">
+                      <input type="radio" name="category" value="B" class="accent-naa-gold" />
+                      <span class="text-sm font-extrabold">الفئة B</span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <div>
+                  <label for="parentPhone" class="block text-sm font-extrabold">رقم الهاتف</label>
+                  <input
+                    id="parentPhone"
+                    name="parentPhone"
+                    type="tel"
+                    inputmode="tel"
+                    autocomplete="tel"
+                    placeholder="05xx xxx xxx"
+                    class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white placeholder:text-white/35 focus-ring"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label for="regDOB" class="block text-sm font-extrabold">
+                    
+                    تاريخ الميلاد
+                  </label>
+                  <input
+                    id="regDOB"
+                    name="regDOB"
+                    type="date"
+                    required
+                    class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-white focus-ring uppercase font-semibold"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  class="inline-flex items-center justify-center gap-2 rounded-2xl bg-naa-green px-5 py-3 text-sm font-extrabold shadow-soft hover:brightness-110 focus-ring"
+                >
+                  <i class="text-4xl font-black text-naa-green" aria-hidden="true"></i>
+                  إرسال طلب الانضمام
+                </button class="text-4xl font-black text-naa-green">
+              </form>
+
+              <div
+                id="studentFeedback"
+                class="mt-4 hidden rounded-2xl border border-naa-green/40 bg-naa-green/15 px-4 py-3 text-sm font-extrabold text-emerald-100"
+                role="status"
+                aria-live="polite"
+              ></div>
+            </section>
+
+
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- (2) Admin Dashboard: قسم مخفي يظهر بعد تسجيل الدخول -->
+      <!-- ===================================================================== -->
+      <section id="adminSection" class="hidden py-12">
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <header class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 class="text-3xl font-extrabold">
+                <i class="fa-solid fa-user-shield ms-2 text-naa-gold" aria-hidden="true"></i>
+                Admin Dashboard
+              </h2>
+              <p class="mt-2 text-white/70">
+                <!-- تعليق عربي: -->
+                <!-- هنا يستطيع المدرب تعديل: -->
+                <!-- 1) نجوم الأسبوع (الأسماء + الصور) -->
+                <!-- 2) نتائج المباريات -->
+                <!-- 3) مشاهدة قائمة الطلاب المسجلين -->
+                أي تعديل هنا يتم حفظه في `localStorage` ويظهر مباشرة في `index.html`.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <a href="index.html" class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-extrabold hover:bg-white/10 focus-ring">
+                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                فتح قاعة الشرف
+              </a>
+              <button
+                id="logoutBtn"
+                type="button"
+                class="inline-flex items-center gap-2 rounded-2xl bg-naa-maroon px-4 py-2 text-sm font-extrabold shadow-soft hover:brightness-110 focus-ring"
+              >
+                <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+                تسجيل خروج
+              </button>
+            </div>
+          </header>
+
+          <div class="mt-8 grid gap-6 lg:grid-cols-12">
+            <!-- =============================================================== -->
+            <!-- (A) تعديل نجوم الأسبوع -->
+            <!-- =============================================================== -->
+            <section class="rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-soft lg:col-span-5">
+              <h3 class="text-xl font-extrabold">
+                <i class="fa-solid fa-star ms-2 text-naa-gold" aria-hidden="true"></i>
+                تغيير نجوم الأسبوع
+              </h3>
+              <p class="mt-2 text-sm text-white/70">
+                <!-- تعليق عربي: -->
+                <!-- - نخزن النجوم في مفتاح واحد: naa_stars_v1 -->
+                <!-- - الهيكل: { A: {name, photo}, B: {name, photo} } -->
+                اكتب اسم النجم وضع رابط الصورة (URL) لكل فئة، ثم احفظ.
+              </p>
+
+              <form id="starsForm" class="mt-6 grid gap-5" novalidate>
+                <div class="rounded-2xl border border-white/10 bg-black/25 p-4">
+                  <p class="text-sm font-extrabold text-sky-200">Category A</p>
+                  <label for="starANameInput" class="mt-3 block text-xs font-extrabold text-white/80">الاسم</label>
+                  <input
+                    id="starANameInput"
+                    type="text"
+                    class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white focus-ring"
+                    placeholder="اسم نجم الفئة A"
+                    required
+                  />
+                  
+                  <label for="starAFileInput" class="mt-3 block text-xs font-extrabold text-white/80">رفع الصورة من الجهاز</label>
+                  <input
+                    id="starAFileInput"
+                    type="file"
+                    accept="image/*"
+                    class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white/80 focus-ring"
+                  />
+                  <p class="mt-2 text-[11px] text-white/55">إن لم ترفع صورة سيبقى الافتراضي (صور الأولاد الأصلية).</p>
+                </div>
+
+                <div class="rounded-2xl border border-white/10 bg-black/25 p-4">
+                  <p class="text-sm font-extrabold text-amber-100">Category B</p>
+                  <label for="starBNameInput" class="mt-3 block text-xs font-extrabold text-white/80">الاسم</label>
+                  <input
+                    id="starBNameInput"
+                    type="text"
+                    class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white focus-ring"
+                    placeholder="اسم نجم الفئة B"
+                    required
+                  />
+                  <label for="starBFileInput" class="mt-3 block text-xs font-extrabold text-white/80">رفع الصورة من الجهاز</label>
+                  <input
+                    id="starBFileInput"
+                    type="file"
+                    accept="image/*"
+                    class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white/80 focus-ring"
+                  />
+                  <p class="mt-2 text-[11px] text-white/55">إن لم ترفع صورة سيبقى الافتراضي (صور الأولاد الأصلية).</p>
+                </div>
+
+                <button
+                  type="submit"
+                  class="inline-flex items-center justify-center gap-2 rounded-2xl bg-naa-sky px-5 py-3 text-sm font-extrabold shadow-soft hover:brightness-110 focus-ring"
+                >
+                  <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+                  حفظ نجوم الأسبوع
+                </button>
+              </form>
+
+              <div
+                id="starsFeedback"
+                class="mt-4 hidden rounded-2xl border border-naa-green/40 bg-naa-green/15 px-4 py-3 text-sm font-extrabold text-emerald-100"
+                role="status"
+                aria-live="polite"
+              ></div>
+            </section>
+
+            <!-- =============================================================== -->
+            <!-- (B) تحديث نتائج المباريات -->
+            <!-- =============================================================== -->
+            <section class="rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-soft lg:col-span-7">
+              <h3 class="text-xl font-extrabold">
+                <i class="fa-solid fa-list-check ms-2 text-naa-sky" aria-hidden="true"></i>
+                تحديث نتائج المباريات
+              </h3>
+              <p class="mt-2 text-sm text-white/70">
+                <!-- تعليق عربي: -->
+                <!-- - نخزن النتائج في naa_results_v1 كمصفوفة عناصر -->
+                <!-- - كل عنصر: {id, date, match, score, note} -->
+                <!-- - نعرض القائمة أسفل النموذج، مع زر حذف لكل نتيجة -->
+                أضف نتيجة جديدة وستظهر فورًا في “النتائج المباشرة” داخل `index.html`.
+              </p>
+
+              <form id="resultForm" class="mt-6 grid gap-4 sm:grid-cols-2" novalidate>
+                <div class="sm:col-span-1">
+                  <label for="resDate" class="block text-sm font-extrabold">التاريخ</label>
+                  <input
+                    id="resDate"
+                    type="text"
+                    class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white focus-ring"
+                    placeholder="مثال: 19 نيسان 2026"
+                    required
+                  />
+                </div>
+                <div class="sm:col-span-1">
+                  <label for="resScore" class="block text-sm font-extrabold">النتيجة</label>
+                  <input
+                    id="resScore"
+                    type="text"
+                    class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white focus-ring"
+                    placeholder="مثال: 2 — 0"
+                    required
+                  />
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="resMatch" class="block text-sm font-extrabold">المباراة</label>
+                  <input
+                    id="resMatch"
+                    type="text"
+                    class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white focus-ring"
+                    placeholder="مثال: أشبال الجديدة vs فريق X"
+                    required
+                  />
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="resNote" class="block text-sm font-extrabold">إنجاز / ملاحظة</label>
+                  <input
+                    id="resNote"
+                    type="text"
+                    class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white focus-ring"
+                    placeholder="مثال: أفضل لاعب: ..."
+                    required
+                  />
+                </div>
+
+                <div class="sm:col-span-2">
+                  <button
+                    type="submit"
+                    class="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-l from-naa-sky to-naa-blue px-5 py-3 text-sm font-extrabold shadow-soft hover:brightness-110 focus-ring"
+                  >
+                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                    إضافة نتيجة
+                  </button>
+                </div>
+              </form>
+
+              <div class="mt-6 overflow-hidden rounded-3xl border border-white/10">
+                <div class="border-b border-white/10 bg-black/30 px-5 py-3">
+                  <p class="text-sm font-extrabold">قائمة النتائج الحالية</p>
+                </div>
+                <div id="resultsList" class="divide-y divide-white/10 bg-white/[0.03]"></div>
+              </div>
+            </section>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- (D) رفع صور/فيديوهات للميديا -->
+          <!-- =============================================================== -->
+          <section class="mt-6 rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-soft">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h3 class="text-xl font-extrabold">
+                  <i class="fa-solid fa-photo-film ms-2 text-naa-sky" aria-hidden="true"></i>
+                  إدارة قسم الميديا
+                </h3>
+                <p class="mt-1 text-sm text-white/70">
+                  <!-- تعليق عربي: -->
+                  <!-- - نستخدم FileReader لقراءة الملف من جهاز الأدمن وتحويله إلى DataURL -->
+                  <!-- - نخزن DataURL في localStorage داخل قائمتين: صور / فيديوهات -->
+                  <!-- - ثم تظهر في media.html مباشرة -->
+                  رفع صور وفيديوهات تدريبية من جهازك لتظهر في صفحة الوسائط.
+                </p>
+              </div>
+              <a href="media.html" class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-extrabold hover:bg-white/10 focus-ring">
+                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                فتح صفحة الوسائط
+              </a>
+            </div>
+
+            <div class="mt-5 grid gap-6 lg:grid-cols-2">
+              <div class="rounded-2xl border border-white/10 bg-black/25 p-4">
+                <p class="text-sm font-extrabold">رفع صورة</p>
+                <form id="mediaPhotoForm" class="mt-4 grid gap-3" novalidate>
+                  <input
+                    id="mediaPhotoTitle"
+                    type="text"
+                    class="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white focus-ring"
+                    placeholder="عنوان الصورة (اختياري)"
+                  />
+                  <input
+                    id="mediaPhotoFile"
+                    type="file"
+                    accept="image/*"
+                    class="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white/80 focus-ring"
+                    required
+                  />
+                  <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-naa-sky px-4 py-3 text-sm font-extrabold shadow-soft hover:brightness-110 focus-ring">
+                    <i class="fa-solid fa-upload" aria-hidden="true"></i>
+                    إضافة الصورة
+                  </button>
+                </form>
+                <div id="mediaPhotosAdminList" class="mt-4 grid gap-3"></div>
+              </div>
+
+              <div class="rounded-2xl border border-white/10 bg-black/25 p-4">
+                <p class="text-sm font-extrabold">رفع فيديو</p>
+                <form id="mediaVideoForm" class="mt-4 grid gap-3" novalidate>
+                  <input
+                    id="mediaVideoTitle"
+                    type="text"
+                    class="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white focus-ring"
+                    placeholder="عنوان الفيديو (اختياري)"
+                  />
+                  <input
+                    id="mediaVideoFile"
+                    type="file"
+                    accept="video/*"
+                    class="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white/80 focus-ring"
+                    required
+                  />
+                  <p class="text-[11px] text-white/55">
+                    ملاحظة: الفيديوهات الكبيرة قد تتجاوز حد localStorage. يفضّل فيديوهات قصيرة للديمو.
+                  </p>
+                  <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-l from-naa-sky to-naa-blue px-4 py-3 text-sm font-extrabold shadow-soft hover:brightness-110 focus-ring">
+                    <i class="fa-solid fa-upload" aria-hidden="true"></i>
+                    إضافة الفيديو
+                  </button>
+                </form>
+                <div id="mediaVideosAdminList" class="mt-4 grid gap-3"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- =============================================================== -->
+          <!-- (E) إدارة المرشحين للتصويت -->
+          <!-- =============================================================== -->
+          <section class="mt-6 rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-soft">
+            <h3 class="text-xl font-extrabold">
+              <i class="fa-solid fa-square-poll-vertical ms-2 text-naa-gold" aria-hidden="true"></i>
+              إدارة مرشحي التصويت
+            </h3>
+            <p class="mt-2 text-sm text-white/70">
+              <!-- تعليق عربي: -->
+              <!-- - يضيف الأدمن لاعب جديد إلى قائمة المرشحين -->
+              <!-- - الصورة تُرفع من الجهاز وتُحوّل إلى DataURL -->
+              <!-- - يتم حفظ المرشحين في naa_nominees_v1 -->
+              <!-- - ويتم إنشاء عدّاد أصوات له داخل naa_votes_v1 -->
+              إضافة لاعبين جدد للتصويت مع رفع صورهم مباشرة.
+            </p>
+
+            <form id="nomineeForm" class="mt-5 grid gap-4 sm:grid-cols-3" novalidate>
+              <div class="sm:col-span-1">
+                <label for="nomineeName" class="block text-sm font-extrabold">اسم اللاعب</label>
+                <input id="nomineeName" type="text" class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white focus-ring" required />
+              </div>
+              <div class="sm:col-span-2">
+                <label for="nomineeFile" class="block text-sm font-extrabold">صورة اللاعب (من الجهاز)</label>
+                <input id="nomineeFile" type="file" accept="image/*" class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white/80 focus-ring" required />
+              </div>
+              <div class="sm:col-span-3">
+                <button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-naa-green px-5 py-3 text-sm font-extrabold shadow-soft hover:brightness-110 focus-ring">
+                  <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                  إضافة المرشح
+                </button>
+              </div>
+            </form>
+
+            <div id="nomineesAdminList" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"></div>
+          </section>
+
+          <!-- =============================================================== -->
+          <!-- (C) طلبات الانضمام — قيد الانتظار -->
+          <!-- =============================================================== -->
+          <section class="mt-6 rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-soft">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h3 class="text-xl font-extrabold flex items-center gap-2">
+                  <i class="fa-solid fa-clock text-yellow-400" aria-hidden="true"></i>
+                  طلبات الانضمام — قيد الانتظار
+                  <span id="pendingBadge" class="hidden text-xs font-extrabold bg-yellow-400/20 text-yellow-300 border border-yellow-400/30 rounded-xl px-2 py-0.5"></span>
+                </h3>
+                <p class="mt-1 text-sm text-white/70">راجع كل طلب واضغط قبول أو رفض — عند القبول فقط تُضاف البيانات للشيت.</p>
+              </div>
+            </div>
+            <div class="mt-5 overflow-hidden rounded-3xl border border-white/10">
+              <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                  <thead class="border-b border-white/10 bg-yellow-500/20">
+                    <tr class="text-right">
+                      <th class="px-4 py-3 font-extrabold">الاسم</th>
+                      <th class="px-4 py-3 font-extrabold">الفئة</th>
+                      <th class="px-4 py-3 font-extrabold">رقم الهاتف</th>
+                      <th class="px-4 py-3 font-extrabold">تاريخ الميلاد</th>
+                      <th class="px-4 py-3 font-extrabold">إجراء</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pendingTbody" class="divide-y divide-white/10 bg-white/[0.03]"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- =============================================================== -->
+          <!-- (C2) قائمة المقبولين -->
+          <!-- =============================================================== -->
+          <section class="mt-6 rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-soft">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h3 class="text-xl font-extrabold flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-naa-gold" aria-hidden="true"></i>
+                  قائمة المقبولين
+                  <span id="approvedBadge" class="hidden text-xs font-extrabold bg-green-400/20 text-green-300 border border-green-400/30 rounded-xl px-2 py-0.5"></span>
+                </h3>
+                <p class="mt-1 text-sm text-white/70">الطلاب الذين تمت الموافقة على انضمامهم وتم حفظهم في الشيت.</p>
+              </div>
+              <button id="clearStudentsBtn" type="button" class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-extrabold hover:bg-white/10 focus-ring">
+                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                مسح قائمة المقبولين
+              </button>
+            </div>
+            <div class="mt-5 overflow-hidden rounded-3xl border border-white/10">
+              <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                  <thead class="border-b border-white/10 bg-naa-blue/35">
+                    <tr class="text-right">
+                      <th class="px-4 py-3 font-extrabold">الاسم</th>
+                      <th class="px-4 py-3 font-extrabold">الفئة</th>
+                      <th class="px-4 py-3 font-extrabold">رقم الهاتف</th>
+                      <th class="px-4 py-3 font-extrabold">تاريخ الميلاد</th>
+                      <th class="px-4 py-3 font-extrabold">الحالة</th>
+                    </tr>
+                  </thead>
+                  <tbody id="studentsTbody" class="divide-y divide-white/10 bg-white/[0.03]"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <footer class="border-t border-white/10 bg-black/40">
+        <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+          <p>© <span id="year"></span> New Ashbal Academy</p>
+          <p>Admin Panel • localStorage</p>
+        </div>
+        <!-- =============================================================== -->
+        <!-- زر دخول الإدارة في أسفل صفحة التسجيل (مطلوب حسب المواصفات) -->
+        <!-- =============================================================== -->
+        <div class="mx-auto max-w-6xl px-4 pb-8 sm:px-6 lg:px-8">
+          <button
+            id="adminLoginFooterBtn"
+            type="button"
+            class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-extrabold hover:bg-white/10 focus-ring sm:w-auto"
+          >
+            <i class="fa-solid fa-user-shield text-naa-gold" aria-hidden="true"></i>
+            دخول الإدارة
+          </button>
+        </div>
+      </footer>
+    </main>
+
+    <!-- ===================================================================== -->
+    <!-- نافذة تسجيل دخول المدرب (Modal) -->
+    <!-- ===================================================================== -->
+    <div id="loginModal" class="fixed inset-0 z-[60] hidden">
+      <!-- خلفية مع تعتيم -->
+      <div class="absolute inset-0 bg-black/70" aria-hidden="true"></div>
+
+      <!-- صندوق النافذة -->
+      <div class="relative mx-auto mt-24 w-[min(92vw,540px)] rounded-3xl border border-white/10 bg-naa-ink p-6 shadow-soft">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-xs font-extrabold tracking-wide text-white/65">Admin Area</p>
+            <h3 class="mt-1 text-2xl font-extrabold">
+              <i class="fa-solid fa-shield-halved ms-2 text-naa-green" aria-hidden="true"></i>
+              دخول الإدارة
+            </h3>
+            <p class="mt-2 text-sm text-white/70">
+              <!-- تعليق عربي: -->
+              <!-- - هذا تسجيل دخول بسيط للتجربة: بيانات اعتماد ثابتة داخل الكود -->
+              <!-- - عند نجاح الدخول نخزن "جلسة" في localStorage -->
+              أدخل بيانات الأدمن لفتح لوحة التحكم.
+            </p>
+          </div>
+          <button id="closeModalBtn" type="button" class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-extrabold hover:bg-white/10 focus-ring" aria-label="إغلاق">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <form id="loginForm" class="mt-6 grid gap-4" novalidate>
+          <div>
+            <label for="adminUsername" class="block text-sm font-extrabold">اسم المستخدم</label>
+            <input
+              id="adminUsername"
+              type="text"
+              class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white focus-ring"
+              placeholder="admin-acj"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="adminPassword" class="block text-sm font-extrabold">كلمة المرور</label>
+            <input
+              id="adminPassword"
+              type="password"
+              class="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white focus-ring"
+              placeholder="••••••••"
+              required
+            />
+            <p class="mt-2 text-xs text-white/55">
+              <!-- تعليق عربي: -->
+              <!-- بيانات الاعتماد المطلوبة حسب المواصفات: -->
+              <!-- username: admin-acj -->
+              <!-- password: adm-123321 -->
+              بيانات الدخول (ديمو): <span class="font-extrabold text-naa-gold">admin-acj</span> / <span class="font-extrabold text-naa-gold">adm-123321</span>
+            </p>
+          </div>
+
+          <button
+            type="submit"
+            class="inline-flex items-center justify-center gap-2 rounded-2xl bg-naa-green px-5 py-3 text-sm font-extrabold shadow-soft hover:brightness-110 focus-ring"
+          >
+            <i class="fa-solid fa-lock" aria-hidden="true"></i>
+            دخول
+          </button>
+
+          <div
+            id="loginFeedback"
+            class="hidden rounded-2xl border border-red-400/40 bg-red-500/10 px-4 py-3 text-sm font-extrabold text-red-100"
+            role="status"
+            aria-live="polite"
+          ></div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // =====================================================================
+      // مفاتيح localStorage (مشتركة مع الصفحات الأخرى)
+      // =====================================================================
+      const LS_KEYS = {
+        stars: "naa_stars_v1",
+        results: "naa_results_v1",
+        registrations: "naa_registrations_v1",
+        nominees: "naa_nominees_v1",
+        votes: "naa_votes_v1",
+        mediaPhotos: "naa_media_photos_v1",
+        mediaVideos: "naa_media_videos_v1",
+        session: "naa_adminSession_v1",
+      };
+
+      function safeJsonParse(text, fallback) {
+        try {
+          return JSON.parse(text);
+        } catch {
+          return fallback;
+        }
+      }
+
+      function lsGet(key, fallback) {
+        const raw = localStorage.getItem(key);
+        if (raw === null) return fallback;
+        return safeJsonParse(raw, fallback);
+      }
+
+      function lsSet(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+
+      // =====================================================================
+      // FileReader Helpers
+      // =====================================================================
+      // تعليق عربي:
+      // - هذه الدالة تُحوّل أي ملف (صورة/فيديو) إلى DataURL
+      // - DataURL يسمح بعرض الملف مباشرة داخل الصفحة بدون خادم
+      async function readFileAsDataUrl(file) {
+        return await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onerror = () => reject(new Error("فشل قراءة الملف"));
+          reader.onload = () => resolve(String(reader.result || ""));
+          reader.readAsDataURL(file);
+        });
+      }
+
+      // =====================================================================
+      // تهيئة بيانات افتراضية لو لم تكن موجودة
+      // =====================================================================
+      // تعليق عربي:
+      // - نفس فكرة seed في `index.html` حتى تعمل الصفحة منفردة.
+      function seedDefaultsIfNeeded() {
+        if (!lsGet(LS_KEYS.stars, null)) {
+          lsSet(LS_KEYS.stars, {
+            A: {
+              name: "يوسف المهدي",
+              photo: "assets/kids.png",
+            },
+            B: {
+              name: "آدم الخطيب",
+              photo: "assets/image_2.png",
+            },
+          });
+        }
+        if (!lsGet(LS_KEYS.results, null)) {
+          lsSet(LS_KEYS.results, [
+            { id: "r1", date: "12 نيسان 2026", match: "أشبال الجديدة vs نجوم الحي", score: "3 — 1", note: "أفضل لاعب: يوسف المهدي" },
+            { id: "r2", date: "5 نيسان 2026", match: "أشبال الجديدة vs أصدقاء الرياضة", score: "2 — 2", note: "عودة قوية في الشوط الثاني" },
+          ]);
+        }
+        if (!lsGet(LS_KEYS.registrations, null)) {
+          lsSet(LS_KEYS.registrations, []);
+        }
+        if (!lsGet(LS_KEYS.nominees, null)) {
+          lsSet(LS_KEYS.nominees, [
+            { id: "n1", name: "خالد منصور", photo: "assets/kids.png" },
+            { id: "n2", name: "طارق سعيد", photo: "assets/image_2.png" },
+            { id: "n3", name: "مالك الدين", photo: "assets/kids.png" },
+          ]);
+        }
+        if (!lsGet(LS_KEYS.votes, null)) {
+          const nominees = lsGet(LS_KEYS.nominees, []);
+          const votesObj = {};
+          (Array.isArray(nominees) ? nominees : []).forEach((n) => (votesObj[n.id] = 0));
+          lsSet(LS_KEYS.votes, votesObj);
+        }
+        if (!lsGet(LS_KEYS.mediaPhotos, null)) {
+          lsSet(LS_KEYS.mediaPhotos, [
+            { id: "p1", title: "صورة تدريب (افتراضي)", dataUrl: "assets/kids.png", createdAt: new Date().toISOString() },
+            { id: "p2", title: "صورة مباراة (افتراضي)", dataUrl: "assets/image_2.png", createdAt: new Date().toISOString() },
+          ]);
+        }
+        if (!lsGet(LS_KEYS.mediaVideos, null)) {
+          lsSet(LS_KEYS.mediaVideos, []);
+        }
+      }
+
+      // =====================================================================
+      // Dropdown (Navbar)
+      // =====================================================================
+      const navDropdownBtn = document.getElementById("navDropdownBtn");
+      const navDropdownMenu = document.getElementById("navDropdownMenu");
+      function setDropdownOpen(isOpen) {
+        if (!navDropdownBtn || !navDropdownMenu) return;
+        navDropdownMenu.classList.toggle("hidden", !isOpen);
+        navDropdownBtn.setAttribute("aria-expanded", String(isOpen));
+      }
+      if (navDropdownBtn) {
+        navDropdownBtn.addEventListener("click", () => {
+          const openNow = navDropdownBtn.getAttribute("aria-expanded") === "true";
+          setDropdownOpen(!openNow);
+        });
+      }
+      document.addEventListener("click", (e) => {
+        if (!navDropdownBtn || !navDropdownMenu) return;
+        const t = e.target;
+        const inside = navDropdownBtn.contains(t) || navDropdownMenu.contains(t);
+        if (!inside) setDropdownOpen(false);
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setDropdownOpen(false);
+      });
+
+      // =====================================================================
+      // (1) تسجيل الطلاب — localStorage + Google Sheets
+      // =====================================================================
+      const SHEETS_URL = "https://script.google.com/macros/s/AKfycbweLGiBr69rFv9m2GhWTfvExx5lGO2o_Za7QZsCy2PxeuBBWkC3pZN3knJwcjYL0acCvQ/exec";
+
+      const studentForm = document.getElementById("studentForm");
+      const studentFeedback = document.getElementById("studentFeedback");
+
+      function showStudentFeedback(text, isError) {
+        if (!studentFeedback) return;
+        studentFeedback.classList.remove("hidden");
+        studentFeedback.textContent = text;
+        studentFeedback.classList.toggle("border-naa-green/40", !isError);
+        studentFeedback.classList.toggle("bg-naa-green/15", !isError);
+        studentFeedback.classList.toggle("text-emerald-100", !isError);
+        studentFeedback.classList.toggle("border-red-400/40", isError);
+        studentFeedback.classList.toggle("bg-red-500/10", isError);
+        studentFeedback.classList.toggle("text-red-100", isError);
+      }
+
+      function addRegistration(record) {
+        const list = lsGet(LS_KEYS.registrations, []);
+        list.unshift(record);
+        lsSet(LS_KEYS.registrations, list);
+      }
+
+      // sendToSheets moved to section 5
+
+      if (studentForm) {
+        studentForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const fd = new FormData(studentForm);
+          const fullName    = String(fd.get("fullName")    || "").trim();
+          const category    = String(fd.get("category")    || "").trim();
+          const parentPhone = String(fd.get("parentPhone") || "").trim();
+          const dob         = String(fd.get("regDOB")      || "").trim();
+
+          if (!fullName || !category || !parentPhone || !dob) {
+            showStudentFeedback("يرجى تعبئة جميع الحقول المطلوبة.", true);
+            return;
+          }
+          if (parentPhone.replace(/\s/g, "").length < 8) {
+            showStudentFeedback("هاتف ولي الأمر يبدو قصيرًا جدًا.", true);
+            return;
+          }
+
+          // زر الإرسال → حالة تحميل
+          const submitBtn = studentForm.querySelector("button[type=submit]");
+          if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "جارٍ الإرسال..."; }
+
+          const record = {
+            id: `s_${Date.now()}`,
+            fullName,
+            category,
+            parentPhone,
+            dob,
+            createdAt: new Date().toISOString(),
+          };
+
+          // أضف للانتظار فقط — المدرب يقبل أو يرفض لاحقاً
+          const pending = getPending();
+          pending.unshift(record);
+          setPending(pending);
+
+          studentForm.reset();
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "إرسال طلب الانضمام"; }
+          showStudentFeedback("✅ تم إرسال طلبك بنجاح! سيتم مراجعته من قِبَل المدرب قريباً.", false);
+          renderPendingTable();
+        });
+      }
+
+      // =====================================================================
+      // (2) جلسة المدرب + إظهار/إخفاء لوحة الإدارة
+      // =====================================================================
+      // تعليق عربي:
+      // - session تُحفظ في localStorage حتى يبقى الدخول فعالًا عند تحديث الصفحة.
+      // - كلمة المرور ثابتة للتجربة فقط (لا يوجد خادم).
+      // بيانات الاعتماد المطلوبة حسب المواصفات
+      const ADMIN_USERNAME = "admin-acj";
+      const ADMIN_PASSWORD = "adm-123321";
+
+      const adminSection = document.getElementById("adminSection");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const adminLoginFooterBtn = document.getElementById("adminLoginFooterBtn");
+
+      const loginModal = document.getElementById("loginModal");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const loginForm = document.getElementById("loginForm");
+      const adminUsername = document.getElementById("adminUsername");
+      const adminPassword = document.getElementById("adminPassword");
+      const loginFeedback = document.getElementById("loginFeedback");
+
+      function setSession(active) {
+        if (active) {
+          lsSet(LS_KEYS.session, { active: true, at: new Date().toISOString() });
+        } else {
+          localStorage.removeItem(LS_KEYS.session);
+        }
+      }
+
+      function isSessionActive() {
+        const s = lsGet(LS_KEYS.session, null);
+        return Boolean(s && s.active);
+      }
+
+      function openModal() {
+        if (!loginModal) return;
+        loginModal.classList.remove("hidden");
+        if (adminUsername) adminUsername.focus();
+        if (loginFeedback) loginFeedback.classList.add("hidden");
+      }
+
+      function closeModal() {
+        if (!loginModal) return;
+        loginModal.classList.add("hidden");
+        if (adminUsername) adminUsername.value = "";
+        if (adminPassword) adminPassword.value = "";
+      }
+
+      function showAdmin() {
+        if (!adminSection) return;
+        adminSection.classList.remove("hidden");
+        // عند فتح لوحة الإدارة نملأ الحقول بالبيانات الحالية
+        fillStarsFormFromStorage();
+        renderResultsList();
+        renderMediaAdmin();
+        renderNomineesAdmin();
+        renderPendingTable();
+        renderStudentsTable();
+      }
+
+      function hideAdmin() {
+        if (!adminSection) return;
+        adminSection.classList.add("hidden");
+      }
+
+      if (adminLoginFooterBtn) adminLoginFooterBtn.addEventListener("click", openModal);
+      if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
+      if (loginModal) {
+        loginModal.addEventListener("click", (e) => {
+          // إغلاق عند الضغط على الخلفية المظلمة فقط
+          if (e.target === loginModal) closeModal();
+        });
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+
+      if (loginForm) {
+        loginForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const u = String(adminUsername?.value || "").trim();
+          const p = String(adminPassword?.value || "");
+          if (u !== ADMIN_USERNAME || p !== ADMIN_PASSWORD) {
+            if (loginFeedback) {
+              loginFeedback.textContent = "بيانات الدخول غير صحيحة. حاول مرة أخرى.";
+              loginFeedback.classList.remove("hidden");
+            }
+            return;
+          }
+          setSession(true);
+          closeModal();
+          showAdmin();
+        });
+      }
+
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+          setSession(false);
+          hideAdmin();
+        });
+      }
+
+      // =====================================================================
+      // (3) تعديل نجوم الأسبوع (Stars)
+      // =====================================================================
+      const starsForm = document.getElementById("starsForm");
+      const starsFeedback = document.getElementById("starsFeedback");
+      const starANameInput = document.getElementById("starANameInput");
+      const starAFileInput = document.getElementById("starAFileInput");
+      const starBNameInput = document.getElementById("starBNameInput");
+      const starBFileInput = document.getElementById("starBFileInput");
+
+      function showStarsFeedback(text) {
+        if (!starsFeedback) return;
+        starsFeedback.textContent = text;
+        starsFeedback.classList.remove("hidden");
+        window.setTimeout(() => starsFeedback.classList.add("hidden"), 1800);
+      }
+
+      function fillStarsFormFromStorage() {
+        const stars = lsGet(LS_KEYS.stars, { A: { name: "", photo: "" }, B: { name: "", photo: "" } });
+        if (starANameInput) starANameInput.value = stars.A?.name || "";
+        if (starBNameInput) starBNameInput.value = stars.B?.name || "";
+        // ملاحظة: مدخلات الملفات (file) لا يمكن تعبئتها برمجيًا لأسباب أمنية في المتصفح.
+      }
+
+      if (starsForm) {
+        starsForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const Aname = String(starANameInput?.value || "").trim();
+          const Bname = String(starBNameInput?.value || "").trim();
+          const current = lsGet(LS_KEYS.stars, { A: { name: "", photo: "assets/kids.png" }, B: { name: "", photo: "assets/image_2.png" } });
+
+          // تعليق عربي:
+          // - نتحقق من وجود الاسم (الصورة اختيارية لأن الافتراضي موجود)
+          if (!Aname || !Bname) {
+            showStarsFeedback("يرجى تعبئة جميع الحقول قبل الحفظ.");
+            return;
+          }
+
+          // ===============================================================
+          // رفع الصور عبر FileReader
+          // - إن تم اختيار ملف: نحوله إلى DataURL ونخزنه
+          // - إن لم يتم اختيار ملف: نحتفظ بالصورة السابقة/الافتراضية
+          // ===============================================================
+          async function readFileAsDataUrl(file) {
+            return await new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onerror = () => reject(new Error("فشل قراءة الملف"));
+              reader.onload = () => resolve(String(reader.result || ""));
+              reader.readAsDataURL(file);
+            });
+          }
+
+          let Aphoto = current.A?.photo || "assets/kids.png";
+          let Bphoto = current.B?.photo || "assets/image_2.png";
+          const Afile = starAFileInput?.files?.[0];
+          const Bfile = starBFileInput?.files?.[0];
+          if (Afile) Aphoto = await readFileAsDataUrl(Afile);
+          if (Bfile) Bphoto = await readFileAsDataUrl(Bfile);
+
+          lsSet(LS_KEYS.stars, {
+            A: { name: Aname, photo: Aphoto },
+            B: { name: Bname, photo: Bphoto },
+          });
+
+          showStarsFeedback("تم حفظ نجوم الأسبوع بنجاح.");
+        });
+      }
+
+      // =====================================================================
+      // (4) إضافة/حذف نتائج المباريات
+      // =====================================================================
+      const resultForm = document.getElementById("resultForm");
+      const resDate = document.getElementById("resDate");
+      const resMatch = document.getElementById("resMatch");
+      const resScore = document.getElementById("resScore");
+      const resNote = document.getElementById("resNote");
+      const resultsList = document.getElementById("resultsList");
+
+      function getResults() {
+        const arr = lsGet(LS_KEYS.results, []);
+        return Array.isArray(arr) ? arr : [];
+      }
+
+      function setResults(arr) {
+        lsSet(LS_KEYS.results, arr);
+      }
+
+      // =====================================================================
+      // (4.5) إدارة الوسائط (صور/فيديوهات) — إضافة/حذف
+      // =====================================================================
+      const mediaPhotoForm = document.getElementById("mediaPhotoForm");
+      const mediaPhotoTitle = document.getElementById("mediaPhotoTitle");
+      const mediaPhotoFile = document.getElementById("mediaPhotoFile");
+      const mediaPhotosAdminList = document.getElementById("mediaPhotosAdminList");
+
+      const mediaVideoForm = document.getElementById("mediaVideoForm");
+      const mediaVideoTitle = document.getElementById("mediaVideoTitle");
+      const mediaVideoFile = document.getElementById("mediaVideoFile");
+      const mediaVideosAdminList = document.getElementById("mediaVideosAdminList");
+
+      function getMediaPhotos() {
+        const arr = lsGet(LS_KEYS.mediaPhotos, []);
+        return Array.isArray(arr) ? arr : [];
+      }
+      function setMediaPhotos(arr) {
+        lsSet(LS_KEYS.mediaPhotos, arr);
+      }
+      function getMediaVideos() {
+        const arr = lsGet(LS_KEYS.mediaVideos, []);
+        return Array.isArray(arr) ? arr : [];
+      }
+      function setMediaVideos(arr) {
+        lsSet(LS_KEYS.mediaVideos, arr);
+      }
+
+      function renderMediaAdmin() {
+        if (mediaPhotosAdminList) {
+          const photos = getMediaPhotos();
+          mediaPhotosAdminList.innerHTML = "";
+          photos.slice(0, 12).forEach((p) => {
+            const row = document.createElement("div");
+            row.className = "flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 p-3";
+            row.innerHTML = `
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="${p.dataUrl}" alt="" class="h-10 w-10 rounded-xl object-cover border border-white/10" />
+                <div class="min-w-0">
+                  <p class="truncate text-xs font-extrabold">${p.title || "صورة"}</p>
+                  <p class="truncate text-[11px] text-white/60">${p.createdAt ? new Date(p.createdAt).toLocaleString("ar") : ""}</p>
+                </div>
+              </div>
+              <button type="button" class="deleteMediaPhotoBtn rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-extrabold hover:bg-white/10 focus-ring" data-id="${p.id}">
+                حذف
+              </button>
+            `;
+            mediaPhotosAdminList.appendChild(row);
+          });
+          mediaPhotosAdminList.querySelectorAll(".deleteMediaPhotoBtn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const id = btn.getAttribute("data-id");
+              setMediaPhotos(getMediaPhotos().filter((x) => x.id !== id));
+              renderMediaAdmin();
+            });
+          });
+        }
+
+        if (mediaVideosAdminList) {
+          const videos = getMediaVideos();
+          mediaVideosAdminList.innerHTML = "";
+          videos.slice(0, 8).forEach((v) => {
+            const row = document.createElement("div");
+            row.className = "flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 p-3";
+            row.innerHTML = `
+              <div class="min-w-0">
+                <p class="truncate text-xs font-extrabold">${v.title || "فيديو"}</p>
+                <p class="truncate text-[11px] text-white/60">${v.createdAt ? new Date(v.createdAt).toLocaleString("ar") : ""}</p>
+              </div>
+              <button type="button" class="deleteMediaVideoBtn rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-extrabold hover:bg-white/10 focus-ring" data-id="${v.id}">
+                حذف
+              </button>
+            `;
+            mediaVideosAdminList.appendChild(row);
+          });
+          mediaVideosAdminList.querySelectorAll(".deleteMediaVideoBtn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const id = btn.getAttribute("data-id");
+              setMediaVideos(getMediaVideos().filter((x) => x.id !== id));
+              renderMediaAdmin();
+            });
+          });
+        }
+      }
+
+      if (mediaPhotoForm) {
+        mediaPhotoForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const file = mediaPhotoFile?.files?.[0];
+          if (!file) return;
+          const dataUrl = await readFileAsDataUrl(file);
+          const title = String(mediaPhotoTitle?.value || "").trim();
+          const next = getMediaPhotos();
+          next.unshift({ id: `p_${Date.now()}`, title, dataUrl, createdAt: new Date().toISOString() });
+          setMediaPhotos(next.slice(0, 40));
+          if (mediaPhotoTitle) mediaPhotoTitle.value = "";
+          if (mediaPhotoFile) mediaPhotoFile.value = "";
+          renderMediaAdmin();
+        });
+      }
+
+      if (mediaVideoForm) {
+        mediaVideoForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const file = mediaVideoFile?.files?.[0];
+          if (!file) return;
+          const dataUrl = await readFileAsDataUrl(file);
+          const title = String(mediaVideoTitle?.value || "").trim();
+          const next = getMediaVideos();
+          next.unshift({ id: `v_${Date.now()}`, title, dataUrl, mime: file.type, createdAt: new Date().toISOString() });
+          setMediaVideos(next.slice(0, 20));
+          if (mediaVideoTitle) mediaVideoTitle.value = "";
+          if (mediaVideoFile) mediaVideoFile.value = "";
+          renderMediaAdmin();
+        });
+      }
+
+      function renderResultsList() {
+        if (!resultsList) return;
+        const arr = getResults();
+        resultsList.innerHTML = "";
+
+        if (!arr.length) {
+          resultsList.innerHTML = `<div class="p-5 text-sm text-white/70">لا توجد نتائج بعد.</div>`;
+          return;
+        }
+
+        arr.forEach((r) => {
+          const row = document.createElement("div");
+          row.className = "flex flex-col gap-2 p-5 sm:flex-row sm:items-center sm:justify-between";
+          row.innerHTML = `
+            <div class="min-w-0">
+              <p class="text-sm font-extrabold text-white">${r.match || "—"}</p>
+              <p class="mt-1 text-xs text-white/60">${r.date || "—"} • <span class="font-extrabold text-naa-gold">${r.score || "—"}</span> • ${r.note || "—"}</p>
+            </div>
+            <button
+              type="button"
+              class="deleteResultBtn inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-extrabold hover:bg-white/10 focus-ring"
+              data-id="${r.id}"
+            >
+              <i class="fa-solid fa-trash" aria-hidden="true"></i>
+              حذف
+            </button>
+          `;
+          resultsList.appendChild(row);
+        });
+
+        resultsList.querySelectorAll(".deleteResultBtn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-id");
+            const next = getResults().filter((x) => x.id !== id);
+            setResults(next);
+            renderResultsList();
+          });
+        });
+      }
+
+      // =====================================================================
+      // (4.9) إدارة المرشحين للتصويت — إضافة/حذف
+      // =====================================================================
+      const nomineeForm = document.getElementById("nomineeForm");
+      const nomineeName = document.getElementById("nomineeName");
+      const nomineeFile = document.getElementById("nomineeFile");
+      const nomineesAdminList = document.getElementById("nomineesAdminList");
+       
+
+      function getNominees() {
+        const arr = lsGet(LS_KEYS.nominees, []);
+        return Array.isArray(arr) ? arr : [];
+      }
+      function setNominees(arr) {
+        lsSet(LS_KEYS.nominees, arr);
+      }
+      function getVotes() {
+        const obj = lsGet(LS_KEYS.votes, {});
+        return obj && typeof obj === "object" ? obj : {};
+      }
+      function setVotes(obj) {
+        lsSet(LS_KEYS.votes, obj);
+      }
+
+      function renderNomineesAdmin() {
+        if (!nomineesAdminList) return;
+        const nominees = getNominees();
+        const votes = getVotes();
+        nomineesAdminList.innerHTML = "";
+
+        nominees.forEach((n) => {
+          const card = document.createElement("div");
+          card.className = "overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-soft";
+          card.innerHTML = `
+            <div class="relative">
+              <img src="${n.photo}" alt="صورة المرشح ${n.name}" class="h-36 w-full object-cover" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" aria-hidden="true"></div>
+              <div class="absolute bottom-3 right-3 left-3">
+                <p class="text-sm font-extrabold truncate">${n.name}</p>
+                <p class="mt-1 text-[11px] text-white/75">الأصوات: <span class="font-extrabold text-naa-gold">${Number(votes[n.id] ?? 0)}</span></p>
+              </div>
+            </div>
+            <div class="p-3">
+              <button type="button" class="deleteNomineeBtn w-full rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-extrabold hover:bg-white/10 focus-ring" data-id="${n.id}">
+                حذف المرشح
+              </button>
+            </div>
+          `;
+          nomineesAdminList.appendChild(card);
+        });
+
+        nomineesAdminList.querySelectorAll(".deleteNomineeBtn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-id");
+            const nextNominees = getNominees().filter((x) => x.id !== id);
+            setNominees(nextNominees);
+
+            // حذف عدّاد الأصوات الخاص به (تنظيف)
+            const votesNow = getVotes();
+            delete votesNow[id];
+            setVotes(votesNow);
+
+            renderNomineesAdmin();
+          });
+        });
+      }
+
+      if (nomineeForm) {
+        nomineeForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = String(nomineeName?.value || "").trim();
+          const file = nomineeFile?.files?.[0];
+          if (!name || !file) return;
+
+          const photo = await readFileAsDataUrl(file);
+          const id = `n_${Date.now()}`;
+
+          const nextNominees = getNominees();
+          nextNominees.unshift({ id, name, photo });
+          setNominees(nextNominees.slice(0, 30));
+
+          const votesNow = getVotes();
+          if (votesNow[id] === undefined) votesNow[id] = 0;
+          setVotes(votesNow);
+
+          if (nomineeName) nomineeName.value = "";
+          if (nomineeFile) nomineeFile.value = "";
+
+          renderNomineesAdmin();
+        });
+      }
+
+      if (resultForm) {
+        resultForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const date = String(resDate?.value || "").trim();
+          const match = String(resMatch?.value || "").trim();
+          const score = String(resScore?.value || "").trim();
+          const note = String(resNote?.value || "").trim();
+          
+
+          if (!date || !match || !score || !note) return;
+
+          const arr = getResults();
+          arr.unshift({
+            id: `r_${Date.now()}`,
+            date,
+            match,
+            score,
+            note,
+          });
+          setResults(arr);
+
+          // تنظيف الحقول
+          if (resDate) resDate.value = "";
+          if (resMatch) resMatch.value = "";
+          if (resScore) resScore.value = "";
+          if (resNote) resNote.value = "";
+
+          renderResultsList();
+        });
+      }
+
+      // =====================================================================
+      // (5) نظام الطلبات — قيد الانتظار / قبول / رفض
+      // =====================================================================
+      const pendingTbody   = document.getElementById("pendingTbody");
+      const studentsTbody  = document.getElementById("studentsTbody");
+      const clearStudentsBtn = document.getElementById("clearStudentsBtn");
+
+      // مفاتيح جديدة
+      LS_KEYS.pending  = "naa_pending_v1";
+      LS_KEYS.approved = "naa_approved_v1";
+
+      function getPending()  { const a = lsGet(LS_KEYS.pending,  []); return Array.isArray(a) ? a : []; }
+      function setPending(a) { lsSet(LS_KEYS.pending,  a); }
+      function getApproved() { const a = lsGet(LS_KEYS.approved, []); return Array.isArray(a) ? a : []; }
+      function setApproved(a){ lsSet(LS_KEYS.approved, a); }
+
+      // ── إرسال للشيت عبر Image tag — يتجاوز CORS تماماً ──
+      function sendToSheets(record) {
+        return new Promise((resolve) => {
+          const params = new URLSearchParams({
+            fullName:    record.fullName,
+            category:    record.category,
+            parentPhone: record.parentPhone,
+            dob:         record.dob,
+          });
+          const img = new Image();
+          img.onload  = () => resolve(true);
+          img.onerror = () => resolve(true); // Google Script يرد بـ redirect مش صورة — هذا طبيعي
+          img.src = SHEETS_URL + "?" + params.toString();
+          // timeout بعد 5 ثواني للتأكد
+          setTimeout(() => resolve(true), 5000);
+        });
+      }
+
+      // ── رسم جدول الانتظار ──
+      function renderPendingTable() {
+        if (!pendingTbody) return;
+        const list = getPending();
+        pendingTbody.innerHTML = "";
+
+        // Badge
+        const badge = document.getElementById("pendingBadge");
+        if (badge) {
+          if (list.length) { badge.textContent = list.length + " طلب"; badge.classList.remove("hidden"); }
+          else badge.classList.add("hidden");
+        }
+
+        if (!list.length) {
+          pendingTbody.innerHTML = `<tr><td colspan="5" class="px-4 py-4 text-sm text-white/70 text-center">لا توجد طلبات معلّقة.</td></tr>`;
+          return;
+        }
+
+        list.forEach((s) => {
+          const tr = document.createElement("tr");
+          tr.className = "hover:bg-white/5 border-b border-white/5 last:border-0";
+          tr.innerHTML = `
+            <td class="px-4 py-3 font-bold">${s.fullName || "—"}</td>
+            <td class="px-4 py-3 font-extrabold ${s.category === "A" ? "text-sky-200" : "text-amber-100"}">${s.category || "—"}</td>
+            <td class="px-4 py-3 text-white/70">${s.parentPhone || "—"}</td>
+            <td class="px-4 py-3 text-white/70">${s.dob || "—"}</td>
+            <td class="px-4 py-3 flex gap-2">
+              <button type="button" data-id="${s.id}" class="approveBtn inline-flex items-center gap-1 rounded-2xl bg-green-600/80 border border-green-500/50 px-3 py-2 text-xs font-extrabold hover:bg-green-500 transition-all focus-ring">
+                <i class="fa-solid fa-check"></i> قبول
+              </button>
+              <button type="button" data-id="${s.id}" class="rejectBtn inline-flex items-center gap-1 rounded-2xl bg-red-600/60 border border-red-500/50 px-3 py-2 text-xs font-extrabold hover:bg-red-500 transition-all focus-ring">
+                <i class="fa-solid fa-xmark"></i> رفض
+              </button>
+            </td>
+          `;
+          pendingTbody.appendChild(tr);
+        });
+
+        // أزرار القبول
+        pendingTbody.querySelectorAll(".approveBtn").forEach(btn => {
+          btn.addEventListener("click", async () => {
+            const id = btn.getAttribute("data-id");
+            const pending = getPending();
+            const student = pending.find(x => x.id === id);
+            if (!student) return;
+
+            // نقله للمقبولين
+            const approved = getApproved();
+            approved.unshift({ ...student, approvedAt: new Date().toISOString() });
+            setApproved(approved);
+
+            // احذفه من الانتظار
+            setPending(pending.filter(x => x.id !== id));
+
+            // أرسله للشيت
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جارٍ الحفظ...';
+            await sendToSheets(student);
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> تم!';
+
+            renderPendingTable();
+            renderStudentsTable();
+          });
+        });
+
+        // أزرار الرفض
+        pendingTbody.querySelectorAll(".rejectBtn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-id");
+            if (confirm("هل تريد رفض هذا الطلب وحذفه؟")) {
+              setPending(getPending().filter(x => x.id !== id));
+              renderPendingTable();
+            }
+          });
+        });
+      }
+
+      // ── رسم جدول المقبولين ──
+      function renderStudentsTable() {
+        if (!studentsTbody) return;
+        const list = getApproved();
+        studentsTbody.innerHTML = "";
+
+        const badge = document.getElementById("approvedBadge");
+        if (badge) {
+          if (list.length) { badge.textContent = list.length + " لاعب"; badge.classList.remove("hidden"); }
+          else badge.classList.add("hidden");
+        }
+
+        if (!list.length) {
+          studentsTbody.innerHTML = `<tr><td colspan="5" class="px-4 py-4 text-sm text-white/70 text-center">لا يوجد طلاب مقبولون بعد.</td></tr>`;
+          return;
+        }
+
+        list.forEach((s) => {
+          const tr = document.createElement("tr");
+          tr.className = "hover:bg-white/5 border-b border-white/5 last:border-0";
+          tr.innerHTML = `
+            <td class="px-4 py-3 font-bold">${s.fullName || "—"}</td>
+            <td class="px-4 py-3 font-extrabold ${s.category === "A" ? "text-sky-200" : "text-amber-100"}">${s.category || "—"}</td>
+            <td class="px-4 py-3 text-white/70">${s.parentPhone || "—"}</td>
+            <td class="px-4 py-3 text-white/70">${s.dob || "—"}</td>
+            <td class="px-4 py-3">
+              <span class="inline-flex items-center gap-1 rounded-2xl bg-green-600/30 border border-green-500/40 px-3 py-1 text-xs font-extrabold text-green-300">
+                <i class="fa-solid fa-circle-check"></i> مقبول
+              </span>
+            </td>
+          `;
+          studentsTbody.appendChild(tr);
+        });
+      }
+
+      if (clearStudentsBtn) {
+        clearStudentsBtn.addEventListener("click", () => {
+          if (confirm("سيتم مسح قائمة المقبولين محلياً (البيانات في الشيت تبقى). متأكد؟")) {
+            setApproved([]);
+            renderStudentsTable();
+          }
+        });
+      }
+
+            // سنة الفوتر
+      const yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      // تشغيل
+      seedDefaultsIfNeeded();
+      if (isSessionActive()) showAdmin();
+      
+      // لا تنسى استدعاء renderStudentsTable لتحديث الجدول عند التحميل
+      renderStudentsTable();
+    </script>
+  </body>
+</html>
+

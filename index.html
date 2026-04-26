@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="New Ashbal Academy — نظام إدارة متكامل: قاعة الشرف والتصويت والنتائج." />
+    <title>الصفحة الرئيسية</title>
+
+    <!-- خط عربي احترافي -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind عبر CDN (مطلوب حسب التكليف) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              naa: {
+                ink: "#0B0F14",
+                blue: "#1e3a8a",
+                sky: "#3b82f6",
+                green: "#1B5E20",
+                maroon: "#7A0C12",
+                gold: "#d4af37",
+              },
+            },
+            boxShadow: {
+              soft: "0 16px 50px rgba(0,0,0,0.35)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- أيقونات -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      body {
+        font-family: "Cairo", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      }
+      .focus-ring:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.35);
+      }
+      .hero {
+        background-image: linear-gradient(
+            115deg,
+            rgba(11, 15, 20, 0.88) 0%,
+            rgba(30, 58, 138, 0.35) 55%,
+            rgba(212, 175, 55, 0.18) 100%
+          ),
+          url("assets/kids.png");
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-naa-ink text-white">
+    <!-- ===================================================================== -->
+    <!-- شريط التنقل العلوي + قائمة منسدلة (Dropdown) للتنقل بين الصفحات الثلاث -->
+    <!-- ===================================================================== -->
+    <header class="sticky top-0 z-50 border-b border-white/10 bg-naa-ink/80 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
+    
+    <a href="index.html" class="group inline-flex items-center gap-3 rounded-2xl px-2 py-2 hover:bg-white/5 focus-ring">
+      <span class="grid h-11 w-11 place-items-center overflow-hidden rounded-2xl border border-white/10 bg-black/30 shadow-soft">
+        <img
+          src="assets/image_1.png"
+          alt="شعار New Ashbal Academy"
+          class="h-full w-full object-contain p-1"
+          loading="eager"
+        />
+      </span>
+      <span class="leading-tight hidden sm:block">
+        <span class="block text-sm font-extrabold">أكاديمية أشبال الجديدة</span>
+        <span class="block text-xs text-white/70">Integrated Management System</span>
+      </span>
+    </a>
+
+    <nav class="flex items-center gap-2">
+      <a href="index.html" 
+         class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs sm:text-sm font-extrabold hover:bg-white/10 hover:border-naa-gold transition-all focus-ring">
+        <i class="fa-solid fa-house text-naa-gold" aria-hidden="true"></i>
+        <span>الرئيسية</span>
+      </a>
+
+      <a href="media.html" 
+         class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs sm:text-sm font-extrabold hover:bg-white/10 hover:border-naa-sky transition-all focus-ring">
+        <i class="fa-solid fa-photo-film text-naa-sky" aria-hidden="true"></i>
+        <span>المعرض</span>
+      </a>
+
+      <a href="register.html" 
+         class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs sm:text-sm font-extrabold hover:bg-white/10 hover:border-naa-green transition-all focus-ring">
+        <i class="fa-solid fa-user-gear text-naa-green" aria-hidden="true"></i>
+        <span>التسجيل</span>
+      </a>
+    </nav>
+
+  </div>
+</header>
+
+    <!-- =================== -->
+    <!-- واجهة قاعة الشرف -->
+    <!-- =================== -->
+    <main>
+      <!-- ================================================================= -->
+      <!-- Hero: عنوان الصفحة بإحساس رياضي + دعوة للتفاعل -->
+      <!-- ================================================================= -->
+      <section class="hero border-b border-white/10">
+        <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+          <div class="grid gap-8 md:grid-cols-2 md:items-center">
+            <div>
+              <p class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 text-xs font-extrabold text-white/85">
+                <span class="h-2 w-2 rounded-full bg-naa-green" aria-hidden="true"></span>
+                الصفحة الرئيسية
+              </p>
+              <h1 class="mt-4 text-4xl font-extrabold leading-tight sm:text-5xl">The Honor Hall</h1>
+              <p class="mt-3 text-white/75 leading-relaxed">
+                هنا نكرّم المتألقين أسبوعيًا، ونفتح التصويت الشهري بطريقة تفاعلية، مع لوحة نتائج تُحدَّث من صفحة الإدارة.
+              </p>
+              <div class="mt-6 flex flex-wrap gap-3">
+                <a href="register.html" class="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-l from-naa-sky to-naa-blue px-5 py-3 text-sm font-extrabold shadow-soft hover:brightness-110 focus-ring">
+                  <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
+                  التسجيل ولوحة الإدارة
+                </a>
+                <a href="media.html" class="inline-flex items-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-extrabold hover:bg-white/10 focus-ring">
+                  <i class="fa-solid fa-photo-film" aria-hidden="true"></i>
+                  معرض الوسائط
+                </a>
+              </div>
+            </div>
+
+            <div class="rounded-3xl border border-white/10 bg-black/25 p-6 shadow-soft">
+              <!-- ============================================================= -->
+              <!-- الشعار الكبير في وسط الصفحة الرئيسية (مطلوب) -->
+              <!-- - مصدر الشعار من ملفات المشروع: assets/image_1.png -->
+              <!-- ============================================================= -->
+              <div class="flex flex-col items-center gap-4 text-center">
+                <img
+                  src="assets/image_1.png"
+                  alt="شعار أكاديمية الأشبال الجديدة"
+                  class="h-40 w-40 rounded-3xl border border-white/10 bg-black/30 p-4 shadow-soft sm:h-44 sm:w-44"
+                  loading="eager"
+                />
+                <div>
+                  <p class="text-xs font-extrabold tracking-wide text-naa-gold">أكاديمية الأشبال الجديدة</p>
+                  <p class="mt-1 text-sm font-extrabold text-white/90">
+                  
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-6 grid gap-3 sm:grid-cols-3">
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p class="text-sm font-extrabold">نجوم الأسبوع</p>
+                  <p class="mt-1 text-xs text-white/70">فئة أ / فئة ب</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p class="text-sm font-extrabold">تصويت الشهر</p>
+                  <p class="mt-1 text-xs text-white/70">تفاعلي + حفظ محلي</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p class="text-sm font-extrabold">النتائج</p>
+                  <p class="mt-1 text-xs text-white/70">تحديث من الإدارة</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- 1) نجوم الأسبوع (Stars of the Week) -->
+      <!-- المطلوب: كرتين بارزين فقط للفئة A والفئة B -->
+      <!-- ===================================================================== -->
+      <section class="py-14">
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <header class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 class="text-3xl font-extrabold">نجوم الأسبوع</h2>
+            </div>
+           
+          </header>
+
+          <div class="mt-8 grid gap-6 md:grid-cols-2">
+            <!-- =============================================================== -->
+            <!-- بطاقة نجم الأسبوع للفئة A -->
+            <!-- ملاحظة: الصورة/الاسم يتم تحميلها من localStorage إن وُجدت -->
+            <!-- =============================================================== -->
+            <article class="rounded-3xl border border-white/10 bg-gradient-to-b from-naa-blue/35 to-white/[0.04] p-6 shadow-soft">
+              <div class="flex items-center justify-between gap-3">
+                <span class="rounded-full border border-naa-sky/40 bg-naa-sky/15 px-3 py-1 text-xs font-extrabold text-sky-200">الفئة A</span>
+                <i class="fa-solid fa-star text-naa-gold" aria-hidden="true"></i>
+              </div>
+              <div class="mt-5 flex items-center gap-5">
+                <img
+                  id="starAImg"
+                  src=""
+                  alt="صورة نجم الأسبوع للفئة A"
+                  class="h-28 w-28 rounded-2xl border-2 border-naa-gold/60 object-cover shadow-soft"
+                  loading="lazy"
+                />
+                <div class="min-w-0">
+                  <p class="text-xs font-extrabold tracking-wide text-white/65">Star of the Week</p>
+                  <h3 id="starAName" class="mt-1 truncate text-2xl font-extrabold">—</h3>
+                  <p class="mt-2 text-sm text-white/70">
+                    <!-- ===================================================== -->
+                    <!-- شرح عربي: هذا النص ثابت للتجربة، بينما الاسم/الصورة ديناميكيان -->
+                    <!-- ===================================================== -->
+                    فئة A: نكرّم الالتزام والروح الرياضية والتطور الملحوظ خلال الأسبوع.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- =============================================================== -->
+            <!-- بطاقة نجم الأسبوع للفئة B -->
+            <!-- =============================================================== -->
+            <article class="rounded-3xl border border-white/10 bg-gradient-to-b from-naa-gold/12 to-white/[0.04] p-6 shadow-soft">
+              <div class="flex items-center justify-between gap-3">
+                <span class="rounded-full border border-naa-gold/40 bg-naa-gold/10 px-3 py-1 text-xs font-extrabold text-amber-100">الفئة B</span>
+                <i class="fa-solid fa-star text-naa-gold" aria-hidden="true"></i>
+              </div>
+              <div class="mt-5 flex items-center gap-5">
+                <img
+                  id="starBImg"
+                  src=""
+                  alt="صورة نجم الأسبوع للفئة B"
+                  class="h-28 w-28 rounded-2xl border-2 border-naa-sky/55 object-cover shadow-soft"
+                  loading="lazy"
+                />
+                <div class="min-w-0">
+                  <p class="text-xs font-extrabold tracking-wide text-white/65">Star of the Week</p>
+                  <h3 id="starBName" class="mt-1 truncate text-2xl font-extrabold">—</h3>
+                  <p class="mt-2 text-sm text-white/70">
+                    فئة B: نكرّم الجهد والالتزام في التمارين، مع تحسن واضح في المهارات الأساسية.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- 2) نظام التصويت الشهري (Monthly Voting System) -->
+      <!-- المطلوب: أسفل النجوم مباشرة — شبكة تفاعلية "Player of the Month" -->
+      <!-- كل مرشح: صورة + اسم + زر Vote -->
+      <!-- ===================================================================== -->
+      <section class="border-y border-white/10 bg-black py-14">
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <header class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 class="text-3xl font-extrabold">تصويت لاعب الشهر</h2>
+              <p class="mt-2 text-white/70">
+                <!-- ========================================================= -->
+                <!-- شرح عربي مهم: التصويت هنا بدون خادم، لذلك نستخدم localStorage -->
+                <!-- - نحفظ عدد الأصوات لكل مرشح -->
+                <!-- - ونحفظ "منع التصويت المتكرر" لكل جهاز خلال الشهر الحالي -->
+                <!-- ========================================================= -->
+                اضغط “Vote” لزيادة صوت مرشحك.
+              </p>
+            </div>
+            <button
+              id="resetMyVoteBtn"
+              type="button"
+              class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-extrabold hover:bg-white/10 focus-ring"
+            >
+              <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+              إعادة التصويت 
+            </button>
+          </header>
+
+          <!-- الشبكة التي سيتم ملؤها ديناميكيًا بالمرشحين -->
+          <div id="nomineesGrid" class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" aria-label="مرشحو لاعب الشهر"></div>
+
+          <!-- سطر يشرح حالة منع التصويت -->
+          <p id="voteHint" class="mt-5 text-xs text-white/60"></p>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- 3) النتائج المباشرة (Live Results) -->
+      <!-- المطلوب: أحدث النتائج والإنجازات -->
+      <!-- ===================================================================== -->
+      <section class="py-14">
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <header class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 class="text-3xl font-extrabold">النتائج المباشرة</h2>
+            
+            </div>
+          </header>
+
+          <div class="mt-8 grid gap-6 lg:grid-cols-5">
+            <!-- =============================================================== -->
+            <!-- جدول النتائج: آخر المباريات -->
+            <!-- =============================================================== -->
+            <div class="lg:col-span-3">
+              <div class="overflow-x-auto rounded-3xl border border-white/10 bg-white/[0.04] shadow-soft">
+                <table class="min-w-full text-sm">
+                  <thead class="border-b border-white/10 bg-naa-blue/35">
+                    <tr class="text-right">
+                      <th class="px-4 py-3 font-extrabold">التاريخ</th>
+                      <th class="px-4 py-3 font-extrabold">المباراة</th>
+                      <th class="px-4 py-3 font-extrabold">النتيجة</th>
+                      <th class="px-4 py-3 font-extrabold hidden sm:table-cell">إنجاز/ملاحظة</th>
+                    </tr>
+                  </thead>
+                  <tbody id="resultsTbody" class="divide-y divide-white/10 text-white/90"></tbody>
+                </table>
+              </div>
+              <p class="mt-3 text-xs text-white/55">
+                <!-- ========================================================= -->
+                <!-- شرح عربي: إن كانت القائمة فارغة، نعرض بيانات افتراضية حتى لا يظهر القسم فارغًا -->
+                <!-- ========================================================= -->
+              يتم تحديث المباريات في أوقات مختلفة الرجاء زيارتنا بشكل مستمر لمعرفة أحدث النتائج
+              </p>
+            </div>
+
+            <!-- =============================================================== -->
+            <!-- بطاقات إنجازات مختصرة (تتبع نفس بيانات النتائج) -->
+            <!-- الهدف: إحساس "Live" + لمسة رياضية احترافية -->
+            <!-- =============================================================== -->
+            <aside class="lg:col-span-2">
+              <h3 class="text-lg font-extrabold text-naa-gold">
+                <i class="fa-solid fa-bolt ms-2" aria-hidden="true"></i>
+                أحدث الإنجازات
+              </h3>
+              <div id="achievementsList" class="mt-4 grid gap-4"></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <footer class="border-t border-white/10 bg-black/40">
+        <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+          <p>© <span id="year"></span> New Ashbal Academy</p>
+          <p>Sporty UI • Tailwind • localStorage Persistence</p>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      // =====================================================================
+      // (A) أدوات مساعدة عامة للـ localStorage
+      // =====================================================================
+      // شرح عربي:
+      // - نستخدم مفاتيح ثابتة حتى تتشارك الصفحات الثلاث نفس البيانات.
+      // - جميع العمليات هنا "محلية" على الجهاز/المتصفح، وليست قاعدة بيانات حقيقية.
+      const LS_KEYS = {
+        stars: "naa_stars_v1",
+        nominees: "naa_nominees_v1",
+        votes: "naa_votes_v1",
+        voteLocks: "naa_voteLocks_v1",
+        results: "naa_results_v1",
+        mediaPhotos: "naa_media_photos_v1",
+        mediaVideos: "naa_media_videos_v1",
+      };
+
+      function safeJsonParse(text, fallback) {
+        try {
+          return JSON.parse(text);
+        } catch {
+          return fallback;
+        }
+      }
+
+      function lsGet(key, fallback) {
+        const raw = localStorage.getItem(key);
+        if (raw === null) return fallback;
+        return safeJsonParse(raw, fallback);
+      }
+
+      function lsSet(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+
+      // =====================================================================
+      // (B) تهيئة بيانات افتراضية "عالية الجودة" للعرض الأول
+      // =====================================================================
+      // شرح عربي:
+      // - إذا كان المستخدم يفتح الموقع لأول مرة، نضع بيانات افتراضية جميلة.
+      // - بعدها يمكن للمدرب تعديلها من `register.html` وستنعكس هنا.
+      function seedDefaultsIfNeeded() {
+        const existingStars = lsGet(LS_KEYS.stars, null);
+        if (!existingStars) {
+          lsSet(LS_KEYS.stars, {
+            A: {
+              name: "يوسف المهدي",
+              // ملاحظة: نحافظ على صور الأولاد الأصلية كافتراضي حتى يغيّرها الأدمن
+              photo: "assets/kids.png",
+            },
+            B: {
+              name: "آدم الخطيب",
+              photo: "assets/image_2.png",
+            },
+          });
+        }
+
+        const existingNominees = lsGet(LS_KEYS.nominees, null);
+        if (!existingNominees) {
+          // ملاحظة: افتراضيًا نستخدم صور المشروع المحلية (صور الأولاد الأصلية)
+          lsSet(LS_KEYS.nominees, [
+            { id: "n1", name: "خالد منصور", photo: "assets/kids.png" },
+            { id: "n2", name: "طارق سعيد", photo: "assets/image_2.png" },
+            { id: "n3", name: "مالك الدين", photo: "assets/kids.png" },
+            { id: "n4", name: "زياد النابلسي", photo: "assets/image_2.png" },
+            { id: "n5", name: "عمر حمدان", photo: "assets/kids.png" },
+            { id: "n6", name: "ليث الكردي", photo: "assets/image_2.png" },
+          ]);
+        }
+
+        const existingVotes = lsGet(LS_KEYS.votes, null);
+        if (!existingVotes) {
+          // هيكل التصويت: { nomineeId: number }
+          const nominees = lsGet(LS_KEYS.nominees, []);
+          const votesObj = {};
+          nominees.forEach((n) => (votesObj[n.id] = 0));
+          lsSet(LS_KEYS.votes, votesObj);
+        }
+
+        const existingResults = lsGet(LS_KEYS.results, null);
+        if (!existingResults) {
+          lsSet(LS_KEYS.results, [
+            {
+              id: "r1",
+              date: "12 نيسان 2026",
+              match: "أشبال الجديدة vs نجوم الحي",
+              score: "3 — 1",
+              note: "أفضل لاعب: يوسف المهدي",
+            },
+            {
+              id: "r2",
+              date: "5 نيسان 2026",
+              match: "أشبال الجديدة vs أصدقاء الرياضة",
+              score: "2 — 2",
+              note: "عودة قوية في الشوط الثاني",
+            },
+            {
+              id: "r3",
+              date: "29 آذار 2026",
+              match: "أشبال الجديدة vs شباب المدينة",
+              score: "4 — 0",
+              note: "كلين شيت + هجوم منظم",
+            },
+          ]);
+        }
+
+        // ملاحظة عربية:
+        // - تجهيز بيانات الوسائط كي تعمل صفحة media.html حتى قبل أن يرفع الأدمن ملفات.
+        const existingPhotos = lsGet(LS_KEYS.mediaPhotos, null);
+        if (!existingPhotos) {
+          lsSet(LS_KEYS.mediaPhotos, [
+            { id: "p1", title: "صورة تدريب (افتراضي)", dataUrl: "assets/kids.png" },
+            { id: "p2", title: "صورة مباراة (افتراضي)", dataUrl: "assets/image_2.png" },
+          ]);
+        }
+
+        const existingVideos = lsGet(LS_KEYS.mediaVideos, null);
+        if (!existingVideos) {
+          lsSet(LS_KEYS.mediaVideos, []);
+        }
+      }
+
+      // =====================================================================
+      // (C) التحكم في القائمة المنسدلة في الـ Navbar
+      // =====================================================================
+      // شرح عربي:
+      // - نستخدم زر واحد يفتح/يغلق القائمة.
+      // - نغلق القائمة عند الضغط خارجها أو عند الضغط على Escape.
+      const navDropdownBtn = document.getElementById("navDropdownBtn");
+      const navDropdownMenu = document.getElementById("navDropdownMenu");
+      function setDropdownOpen(isOpen) {
+        if (!navDropdownBtn || !navDropdownMenu) return;
+        navDropdownMenu.classList.toggle("hidden", !isOpen);
+        navDropdownBtn.setAttribute("aria-expanded", String(isOpen));
+      }
+      if (navDropdownBtn) {
+        navDropdownBtn.addEventListener("click", () => {
+          const openNow = navDropdownBtn.getAttribute("aria-expanded") === "true";
+          setDropdownOpen(!openNow);
+        });
+      }
+      document.addEventListener("click", (e) => {
+        if (!navDropdownBtn || !navDropdownMenu) return;
+        const t = e.target;
+        const inside = navDropdownBtn.contains(t) || navDropdownMenu.contains(t);
+        if (!inside) setDropdownOpen(false);
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setDropdownOpen(false);
+      });
+
+      // =====================================================================
+      // (D) عرض نجوم الأسبوع (قراءة من localStorage)
+      // =====================================================================
+      function renderStars() {
+        const stars = lsGet(LS_KEYS.stars, { A: { name: "—", photo: "" }, B: { name: "—", photo: "" } });
+
+        // صور عالية الجودة افتراضية إن كانت القيمة فارغة
+        // ملاحظة: الافتراضي هو صور المشروع المحلية (صور الأولاد الأصلية)
+        const fallbackA = "assets/kids.png";
+        const fallbackB = "assets/image_2.png";
+
+        const starAImg = document.getElementById("starAImg");
+        const starAName = document.getElementById("starAName");
+        const starBImg = document.getElementById("starBImg");
+        const starBName = document.getElementById("starBName");
+
+        if (starAImg) starAImg.src = stars.A?.photo || fallbackA;
+        if (starAName) starAName.textContent = stars.A?.name || "—";
+        if (starBImg) starBImg.src = stars.B?.photo || fallbackB;
+        if (starBName) starBName.textContent = stars.B?.name || "—";
+      }
+
+      // =====================================================================
+      // (E) التصويت الشهري: بناء الشبكة + حفظ الأصوات + منع التكرار
+      // =====================================================================
+      // شرح عربي:
+      // - votes: كائن يحفظ عدد الأصوات لكل مرشح.
+      // - voteLocks: كائن يحفظ "هل هذا الجهاز صوّت هذا الشهر؟"
+      //   مثال: { "2026-04": true }
+      // - الهدف: تجربة تفاعلية واضحة، وليست نظام أمني حقيقي.
+      function getMonthKey() {
+        const d = new Date();
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, "0");
+        return `${y}-${m}`;
+      }
+
+      function renderNominees() {
+        const grid = document.getElementById("nomineesGrid");
+        const hint = document.getElementById("voteHint");
+        if (!grid) return;
+
+        const nominees = lsGet(LS_KEYS.nominees, []);
+        const votes = lsGet(LS_KEYS.votes, {});
+        const voteLocks = lsGet(LS_KEYS.voteLocks, {});
+
+        const monthKey = getMonthKey();
+        const locked = Boolean(voteLocks[monthKey]);
+
+        // تحديث نص الإرشاد أسفل الشبكة
+        if (hint) {
+          hint.textContent = locked
+            ? `تم تسجيل تصويت على هذا الجهاز لشهر ${monthKey}. يمكن إعادة التمكين من زر "إعادة تمكين التصويت".`
+            : `التصويت متاح الآن لشهر ${monthKey}.`;
+        }
+
+        grid.innerHTML = "";
+        nominees.forEach((n) => {
+          const count = Number(votes[n.id] ?? 0);
+          const card = document.createElement("article");
+          card.className =
+            "overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-soft transition hover:border-white/20";
+
+          // ===============================================================
+          // ملاحظة عربية:
+          // - زر Vote يُعطَّل إذا كان الجهاز قد صوّت خلال الشهر الحالي.
+          // - نعرض عدد الأصوات مباشرة من localStorage.
+          // ===============================================================
+          card.innerHTML = `
+            <div class="relative">
+              <img src="${n.photo}" alt="صورة المرشح ${n.name}" class="h-44 w-full object-cover" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" aria-hidden="true"></div>
+              <div class="absolute bottom-3 right-3 left-3">
+                <p class="text-lg font-extrabold">${n.name}</p>
+                <p class="mt-1 text-xs text-white/75">الأصوات الحالية: <span class="font-extrabold text-naa-gold" data-vote-count="${n.id}">${count}</span></p>
+              </div>
+            </div>
+            <div class="p-4">
+              <button
+                type="button"
+                class="voteBtn w-full rounded-2xl px-4 py-3 text-sm font-extrabold transition focus-ring ${
+                  locked ? "cursor-not-allowed opacity-60 bg-white/10" : "bg-naa-sky hover:brightness-110"
+                }"
+                data-nominee-id="${n.id}"
+                ${locked ? "disabled" : ""}
+              >
+                <i class="fa-solid fa-square-poll-vertical ms-2" aria-hidden="true"></i>
+                Vote
+              </button>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+
+        grid.querySelectorAll(".voteBtn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const nomineeId = btn.getAttribute("data-nominee-id");
+            if (!nomineeId) return;
+
+            const monthKeyNow = getMonthKey();
+            const voteLocksNow = lsGet(LS_KEYS.voteLocks, {});
+            if (voteLocksNow[monthKeyNow]) return; // حماية إضافية
+
+            // 1) زيادة العداد في التخزين
+            const votesNow = lsGet(LS_KEYS.votes, {});
+            votesNow[nomineeId] = Number(votesNow[nomineeId] ?? 0) + 1;
+            lsSet(LS_KEYS.votes, votesNow);
+
+            // 2) قفل التصويت على هذا الجهاز لهذا الشهر
+            voteLocksNow[monthKeyNow] = true;
+            lsSet(LS_KEYS.voteLocks, voteLocksNow);
+
+            // 3) إعادة الرسم ليظهر التحديث وتعطيل الأزرار
+            renderNominees();
+          });
+        });
+      }
+
+      // زر يسمح بإعادة تمكين التصويت على نفس الجهاز (مفيد للتجربة/الديمو)
+      const resetMyVoteBtn = document.getElementById("resetMyVoteBtn");
+      if (resetMyVoteBtn) {
+        resetMyVoteBtn.addEventListener("click", () => {
+          const monthKey = getMonthKey();
+          const locks = lsGet(LS_KEYS.voteLocks, {});
+          delete locks[monthKey];
+          lsSet(LS_KEYS.voteLocks, locks);
+          renderNominees();
+        });
+      }
+
+      // =====================================================================
+      // (F) النتائج المباشرة: جدول + إنجازات
+      // =====================================================================
+      function renderResults() {
+        const tbody = document.getElementById("resultsTbody");
+        const achievements = document.getElementById("achievementsList");
+        if (!tbody || !achievements) return;
+
+        const results = lsGet(LS_KEYS.results, []);
+        const list = Array.isArray(results) ? results : [];
+
+        tbody.innerHTML = "";
+        achievements.innerHTML = "";
+
+        list.slice(0, 6).forEach((r, idx) => {
+          const tr = document.createElement("tr");
+          tr.className = "hover:bg-white/5";
+          tr.innerHTML = `
+            <td class="px-4 py-3 text-white/70">${r.date || "—"}</td>
+            <td class="px-4 py-3 font-bold">${r.match || "—"}</td>
+            <td class="px-4 py-3 font-extrabold text-naa-gold">${r.score || "—"}</td>
+            <td class="px-4 py-3 text-white/70 hidden sm:table-cell">${r.note || "—"}</td>
+          `;
+          tbody.appendChild(tr);
+
+          // بطاقة إنجاز على اليمين
+          const card = document.createElement("div");
+          card.className =
+            "rounded-3xl border border-white/10 bg-gradient-to-l from-naa-gold/10 to-white/[0.03] p-4";
+          card.innerHTML = `
+            <p class="text-xs font-extrabold text-white/60">آخر تحديث #${idx + 1}</p>
+            <p class="mt-1 font-extrabold">${r.match || "—"}</p>
+            <p class="mt-1 text-sm text-white/70">${r.score || "—"} • ${r.note || "—"}</p>
+          `;
+          achievements.appendChild(card);
+        });
+      }
+
+      // سنة الفوتر
+      const yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      // تشغيل التطبيق
+      seedDefaultsIfNeeded();
+      renderStars();
+      renderNominees();
+      renderResults();
+
+      // =====================================================================
+      // (G) تحديث تلقائي بسيط عند الرجوع من صفحة الإدارة
+      // =====================================================================
+      // شرح عربي:
+      // - عند عودة المستخدم من `register.html` قد تكون البيانات تغيرت.
+      // - لذلك نستمع لحدث "focus" لإعادة العرض بسرعة.
+      window.addEventListener("focus", () => {
+        renderStars();
+        renderNominees();
+        renderResults();
+      });
+    </script>
+  </body>
+</html>
